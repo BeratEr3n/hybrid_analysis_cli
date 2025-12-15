@@ -7,14 +7,32 @@ from core.classifier import TargetClassifier, TargetType
 class SearchService:
     """Hybrid Analysis üzerinde lookup (search) yapan servis"""
 
-    def __init__(self, client: APIClient, classifier: TargetClassifier):
+    def __init__(self, client: APIClient):
         self.client = client
-        self.classifier = classifier
+        self.classifier = TargetClassifier()
 
-    def search(self, target: str) -> dict:
-        target_type = self.classifier.classify(target)
+    def detect_target_type(self, target: str) -> TargetType:
+        """
+        Target için otomatik tip tespiti yapar.
+        SADECE --target yolunda kullanılmalıdır.
+        """
+        return self.classifier.classify(target)
 
-        # UNKNOWN → kontrollü dur
+    def search_by_filename(self, filename: str) -> dict:
+        """
+        Filename'e göre arama yapar.
+        """
+        return self.client.post(
+            path="/search/terms",
+            data={"filename": filename}
+        )
+
+    def search(self, target: str, target_type: TargetType) -> dict:
+        """
+        Belirtilmiş target_type'a göre arama yapar.
+        """
+
+        # UNKNOWN → kontrollü şekilde dur
         if target_type == TargetType.UNKNOWN:
             return {
                 "status": "unsupported_target",
@@ -29,11 +47,7 @@ class SearchService:
             )
 
         # IP / DOMAIN / URL → search/terms (POST)
-        payload = {
-            target_type.value: target
-        }
-
         return self.client.post(
             path="/search/terms",
-            data=payload
+            data={target_type.value: target}
         )
