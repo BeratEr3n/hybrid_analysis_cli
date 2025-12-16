@@ -29,7 +29,7 @@ cd hybrit_analysis_cli
 ### 2. Virtual environment (önerilir)
 ```bash
 python -m venv venv
-source venv/bin/activate
+venv\Scripts\activate
 ```
 
 ### 3. Bağımlılıkları yükle
@@ -43,7 +43,7 @@ pip install -r requirements.txt
 
 ### `.env` dosyası oluştur
 ```bash
-cp .env.example .env
+copy .env.example .env
 ```
 
 ### `.env` içeriği
