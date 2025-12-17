@@ -1,7 +1,7 @@
 # src/core/search.py
 
 from core.api import APIClient
-from core.classifier import TargetClassifier, TargetType
+from core.classifier import TargetType
 
 
 class SearchService:
@@ -9,14 +9,6 @@ class SearchService:
 
     def __init__(self, client: APIClient):
         self.client = client
-        self.classifier = TargetClassifier()
-
-    def detect_target_type(self, target: str) -> TargetType:
-        """
-        Target için otomatik tip tespiti yapar.
-        SADECE --target yolunda kullanılmalıdır.
-        """
-        return self.classifier.classify(target)
 
     def search_by_filename(self, filename: str) -> dict:
         """
@@ -31,14 +23,7 @@ class SearchService:
         """
         Belirtilmiş target_type'a göre arama yapar.
         """
-
-        # UNKNOWN → kontrollü şekilde dur
-        if target_type == TargetType.UNKNOWN:
-            return {
-                "status": "unsupported_target",
-                "target": target
-            }
-
+        
         # HASH → özel endpoint (GET)
         if target_type == TargetType.HASH:
             return self.client.get(

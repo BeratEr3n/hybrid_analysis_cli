@@ -51,13 +51,6 @@ def handle_search(args):
             target=args.filename,
             target_type=TargetType.FILENAME
         )
-
-    elif args.target:
-        result = SearchOrc.run_search(
-            target=args.target,
-            target_type=TargetType.TARGET
-        )
-
     elif args.hash:
         result = SearchOrc.run_search(
             target=args.hash,

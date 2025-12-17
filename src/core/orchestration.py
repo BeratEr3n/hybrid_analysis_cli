@@ -179,10 +179,5 @@ class SearchOrchestrator:
         if target_type == TargetType.FILENAME:
             return self.search.search_by_filename(target)
 
-        # auto-detect (--target)
-        if target_type == TargetType.TARGET:
-            detected = self.search.detect_target_type(target)
-            return self.search.search(target, detected)
-
         # explicit (--hash, --url, --domain, --host)
         return self.search.search(target, target_type)

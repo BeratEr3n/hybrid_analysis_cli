@@ -47,7 +47,6 @@ def build_parser() -> argparse.ArgumentParser:
     search_group = search.add_mutually_exclusive_group(required=True)
 
     search_group.add_argument("--filename", type=str, help="Search by filename")
-    search_group.add_argument("--target", type=str, help="Auto-detect target type (except filename)")
 
     search_group.add_argument("--hash", type=str, help="Search by hash")
     search_group.add_argument("--url", type=str, help="Search by URL")
