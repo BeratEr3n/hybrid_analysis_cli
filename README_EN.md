@@ -1,142 +1,138 @@
 # hybrit_analysis_cli
 
-`hybrit_analysis_cli` is a command-line tool that uses the **Hybrid Analysis** API to perform:
-- sandbox submissions
-- quick scans
-- hash / domain / IP / URL / filename searches
+`hybrit_analysis_cli` is a CLI tool that uses the **Hybrid Analysis** API to perform:
 
-directly from the terminal.
+- sandbox submission (file / URL)
+- quick scan (file / URL)
+- hash / domain / ip / url / filename search
 
----
-
-## 🚀 Features
-
-- File & URL **Sandbox Analysis**
-- File & URL **Quick Scan**
-- Hash / URL / Domain / IP / Filename **Search**
-- Automatic target type detection (`--target`)
+from the command line or programmatically (MCP / LLM).
 
 ---
 
-## 📦 Installation
+## Features
 
-### 1. Clone the repository
+- File & URL Sandbox Analysis
+- File & URL Quick Scan
+- Hash / URL / Domain / IP / Filename search
+- Explicit target selection (no auto-detection)
+- API key required, fail-fast behavior
+
+---
+
+## Installation
+
+### Clone the repository
 ```bash
 git clone https://github.com/BeratEr3n/hybrit_analysis_cli.git
 cd hybrit_analysis_cli
 ```
 
-### 2. Virtual environment (recommended)
-```bat
+### Virtual environment (recommended)
+```bash
 python -m venv venv
 venv\Scripts\activate
 ```
 
-### 3. Install dependencies
+### Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## 🔑 Configuration
+## Configuration
 
-### Create `.env` file
-```bat
-copy .env.example .env
-```
+In this project:
 
-### `.env` content
-```env
-HYBRIT_ANALYSIS_API_KEY=YOUR_API_KEY_HERE
-```
+- `.env` is not used
+- Environment variables are not used
+- API key is required as a parameter
 
-> API key: https://hybrid-analysis.com
+API key:
+https://hybrid-analysis.com
 
 ---
 
-## ▶️ Usage
+## Usage
 
 ```bash
-python src/main.py <command> [options]
+python src/main.py --api-key YOUR_API_KEY <command> [options]
 ```
+
+The program will not run without an API key.
 
 ---
 
-## 🧪 Commands
+## Commands
 
-### 🔹 Sandbox Submit
+### Sandbox Submit
 
-#### File
+File:
 ```bash
-python src/main.py submit --file sample.exe
+python src/main.py --api-key YOUR_API_KEY submit --file sample.exe
 ```
 
-#### URL
+URL:
 ```bash
-python src/main.py submit --url https://example.com
+python src/main.py --api-key YOUR_API_KEY submit --url https://example.com
 ```
 
-#### Custom environment
+Custom environment:
 ```bash
-python src/main.py submit --file sample.exe --env-id 140
-```
-
----
-
-### 🔹 Quick Scan
-
-#### File
-```bash
-python src/main.py scan --file sample.exe
-```
-
-#### URL
-```bash
-python src/main.py scan --url https://example.com
-```
-
-#### Custom scan type
-```bash
-python src/main.py scan --file sample.exe --scan-type all
+python src/main.py --api-key YOUR_API_KEY submit --file sample.exe --env-id 140
 ```
 
 ---
 
-### 🔹 Search
+### Quick Scan
 
-#### Filename
+File:
 ```bash
-python src/main.py search --filename test.exe
+python src/main.py --api-key YOUR_API_KEY scan --file sample.exe
 ```
 
-#### Hash
+URL:
 ```bash
-python src/main.py search --hash <sha256>
+python src/main.py --api-key YOUR_API_KEY scan --url https://example.com
 ```
 
-#### URL / Domain / Host
+Custom scan type:
 ```bash
-python src/main.py search --url https://example.com
-python src/main.py search --domain example.com
-python src/main.py search --host 8.8.8.8
-```
-
-#### Auto-detect
-```bash
-python src/main.py search --target example.com
+python src/main.py --api-key YOUR_API_KEY scan --file sample.exe --scan-type all
 ```
 
 ---
 
-## 🛠 Notes
+### Search
 
-- Sandbox and quick scan operations are handled via **polling**
-- Timeout and interval settings are located in `config/settings.py`
-- Parser layers are intentionally minimal and designed for future extension
+Filename:
+```bash
+python src/main.py --api-key YOUR_API_KEY search --filename test.exe
+```
+
+Hash:
+```bash
+python src/main.py --api-key YOUR_API_KEY search --hash <sha256>
+```
+
+URL / Domain / Host:
+```bash
+python src/main.py --api-key YOUR_API_KEY search --url https://example.com
+python src/main.py --api-key YOUR_API_KEY search --domain example.com
+python src/main.py --api-key YOUR_API_KEY search --host 8.8.8.8
+```
 
 ---
 
-## 📄 License
+## Notes
+
+- Sandbox and quick scan operations are tracked via polling
+- Timeout and interval settings are configured in `config/settings.py`
+- The tool is designed for MCP / LLM integration; human CLI UX is not the priority
+
+---
+
+## License
 
 MIT

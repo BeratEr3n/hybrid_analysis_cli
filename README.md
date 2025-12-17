@@ -1,143 +1,138 @@
 # hybrit_analysis_cli
 
-`hybrit_analysis_cli`, **Hybrid Analysis** API’sini kullanarak
-- sandbox submission
-- quick scan
+`hybrit_analysis_cli`, **Hybrid Analysis** API’sini kullanarak:
+
+- sandbox submission (dosya / URL)
+- quick scan (dosya / URL)
 - hash / domain / ip / url / filename search
 
-işlemlerini **komut satırından** yapmanı sağlayan bir CLI aracıdır.
+işlemlerini komut satırından veya programatik olarak (MCP / LLM) yapmanı sağlayan bir CLI aracıdır.
 
 ---
 
-## 🚀 Features
+## Features
 
-- File & URL **Sandbox Analysis**
-- File & URL **Quick Scan**
-- Hash / URL / Domain / IP / Filename **Search**
-- Otomatik target type tespiti (`--target`)
+- Dosya ve URL için Sandbox Analizi
+- Dosya ve URL için Quick Scan
+- Hash / URL / Domain / IP / Filename arama
+- Explicit target seçimi (otomatik tespit yok)
+- API key zorunlu, fail-fast davranış
 
 ---
 
-## 📦 Installation
+## Installation
 
-### 1. Repo’yu klonla
+### Repo’yu klonla
 ```bash
 git clone https://github.com/BeratEr3n/hybrit_analysis_cli.git
 cd hybrit_analysis_cli
 ```
 
-### 2. Virtual environment (önerilir)
+### Virtual environment (önerilir)
 ```bash
 python -m venv venv
 venv\Scripts\activate
 ```
 
-### 3. Bağımlılıkları yükle
+### Bağımlılıkları yükle
 ```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## 🔑 Configuration
+## Configuration
 
-### `.env` dosyası oluştur
-```bash
-copy .env.example .env
-```
+Bu projede:
 
-### `.env` içeriği
-```env
-HYBRIT_ANALYSIS_API_KEY=YOUR_API_KEY_HERE
-```
+- `.env` kullanılmaz
+- environment variable kullanılmaz
+- API key parametre olarak zorunludur
 
-> API key: https://hybrid-analysis.com
+API key:
+https://hybrid-analysis.com
 
 ---
 
-## ▶️ Usage
+## Usage
 
 ```bash
-python src/main.py <command> [options]
+python src/main.py --api-key YOUR_API_KEY <command> [options]
 ```
+
+API key verilmezse program çalışmaz.
 
 ---
 
-## 🧪 Commands
+## Commands
 
-### 🔹 Sandbox Submit
+### Sandbox Submit
 
-#### File
+Dosya:
 ```bash
-python src/main.py submit --file sample.exe
+python src/main.py --api-key YOUR_API_KEY submit --file sample.exe
 ```
 
-#### URL
+URL:
 ```bash
-python src/main.py submit --url https://example.com
+python src/main.py --api-key YOUR_API_KEY submit --url https://example.com
 ```
 
-#### Custom environment
+Özel environment:
 ```bash
-python src/main.py submit --file sample.exe --env-id 140
-```
-
----
-
-### 🔹 Quick Scan
-
-#### File
-```bash
-python src/main.py scan --file sample.exe
-```
-
-#### URL
-```bash
-python src/main.py scan --url https://example.com
-```
-
-#### Custom scan type
-```bash
-python src/main.py scan --file sample.exe --scan-type all
+python src/main.py --api-key YOUR_API_KEY submit --file sample.exe --env-id 140
 ```
 
 ---
 
-### 🔹 Search
+### Quick Scan
 
-#### Filename
+Dosya:
 ```bash
-python src/main.py search --filename test.exe
+python src/main.py --api-key YOUR_API_KEY scan --file sample.exe
 ```
 
-#### Hash
+URL:
 ```bash
-python src/main.py search --hash <sha256>
+python src/main.py --api-key YOUR_API_KEY scan --url https://example.com
 ```
 
-#### URL / Domain / Host
+Özel scan type:
 ```bash
-python src/main.py search --url https://example.com
-python src/main.py search --domain example.com
-python src/main.py search --host 8.8.8.8
-```
-
-#### Auto-detect
-```bash
-python src/main.py search --target example.com
+python src/main.py --api-key YOUR_API_KEY scan --file sample.exe --scan-type all
 ```
 
 ---
 
+### Search
 
-## 🛠 Notes
+Filename:
+```bash
+python src/main.py --api-key YOUR_API_KEY search --filename test.exe
+```
 
-- Sandbox & quick scan işlemleri **polling** ile takip edilir
+Hash:
+```bash
+python src/main.py --api-key YOUR_API_KEY search --hash <sha256>
+```
+
+URL / Domain / Host:
+```bash
+python src/main.py --api-key YOUR_API_KEY search --url https://example.com
+python src/main.py --api-key YOUR_API_KEY search --domain example.com
+python src/main.py --api-key YOUR_API_KEY search --host 8.8.8.8
+```
+
+---
+
+## Notes
+
+- Sandbox ve quick scan işlemleri polling ile takip edilir
 - Timeout ve interval ayarları `config/settings.py` içindedir
-- Parser katmanları ileride zenginleştirilmek üzere sade tutulmuştur
+- Tool MCP / LLM entegrasyonu için uygundur, insan CLI deneyimi öncelik değildir
 
 ---
 
-## 📄 License
+## License
 
 MIT
