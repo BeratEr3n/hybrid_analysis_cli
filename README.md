@@ -70,17 +70,17 @@ API key verilmezse program çalışmaz.
 
 Dosya:
 ```bash
-python src/main.py --api-key YOUR_API_KEY submit --file sample.exe
+python src/main.py --api-key YOUR_API_KEY --submit --file sample.exe
 ```
 
 URL:
 ```bash
-python src/main.py --api-key YOUR_API_KEY submit --url https://example.com
+python src/main.py --api-key YOUR_API_KEY --submit --url https://example.com
 ```
 
 Özel environment:
 ```bash
-python src/main.py --api-key YOUR_API_KEY submit --file sample.exe --env-id 140
+python src/main.py --api-key YOUR_API_KEY --submit --file sample.exe --env-id 140
 ```
 
 ---
@@ -89,17 +89,17 @@ python src/main.py --api-key YOUR_API_KEY submit --file sample.exe --env-id 140
 
 Dosya:
 ```bash
-python src/main.py --api-key YOUR_API_KEY scan --file sample.exe
+python src/main.py --api-key YOUR_API_KEY --scan --file sample.exe
 ```
 
 URL:
 ```bash
-python src/main.py --api-key YOUR_API_KEY scan --url https://example.com
+python src/main.py --api-key YOUR_API_KEY --scan --url https://example.com
 ```
 
 Özel scan type:
 ```bash
-python src/main.py --api-key YOUR_API_KEY scan --file sample.exe --scan-type all
+python src/main.py --api-key YOUR_API_KEY --scan --file sample.exe --scan-type all
 ```
 
 ---
@@ -108,19 +108,19 @@ python src/main.py --api-key YOUR_API_KEY scan --file sample.exe --scan-type all
 
 Filename:
 ```bash
-python src/main.py --api-key YOUR_API_KEY search --filename test.exe
+python src/main.py --api-key YOUR_API_KEY --search --filename test.exe
 ```
 
 Hash:
 ```bash
-python src/main.py --api-key YOUR_API_KEY search --hash <sha256>
+python src/main.py --api-key YOUR_API_KEY --search --hash <sha256>
 ```
 
 URL / Domain / Host:
 ```bash
-python src/main.py --api-key YOUR_API_KEY search --url https://example.com
-python src/main.py --api-key YOUR_API_KEY search --domain example.com
-python src/main.py --api-key YOUR_API_KEY search --host 8.8.8.8
+python src/main.py --api-key YOUR_API_KEY --search --url https://example.com
+python src/main.py --api-key YOUR_API_KEY --search --domain example.com
+python src/main.py --api-key YOUR_API_KEY --search --host 8.8.8.8
 ```
 
 ---
