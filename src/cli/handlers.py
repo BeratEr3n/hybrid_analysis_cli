@@ -12,71 +12,76 @@ from core.classifier import TargetType
 def handle_command(args):
     client = APIClient(api_key=args.api_key)
 
-    SandboxOrc = SandboxOrchestrator(client)
-    QuickScanOrc = QuickScanOrchestrator(client)
-    SearchOrc = SearchOrchestrator(client)
+    sandbox_orc = SandboxOrchestrator(client)
+    quickscan_orc = QuickScanOrchestrator(client)
+    search_orc = SearchOrchestrator(client)
 
-    if args.command == "submit":
-        handle_submit(args, SandboxOrc)
-    elif args.command == "scan":
-        handle_scan(args, QuickScanOrc)
-    elif args.command == "search":
-        handle_search(args, SearchOrc)
+    if args.submit:
+        handle_submit(args, sandbox_orc)
+
+    elif args.scan:
+        handle_scan(args, quickscan_orc)
+
+    elif args.search:
+        handle_search(args, search_orc)
+
     else:
-        raise RuntimeError("Unknown command")
+        raise RuntimeError("No mode selected")
 
 
-def handle_submit(args, SandboxOrc):
+def handle_submit(args, sandbox_orc):
     if args.file:
-        result = SandboxOrc.run_file(args.file, args.env_id)
-        print(result)
+        result = sandbox_orc.run_file(args.file, args.env_id)
 
     elif args.url:
-        result = SandboxOrc.run_url(args.url, args.env_id)
-        print(result)
+        result = sandbox_orc.run_url(args.url, args.env_id)
+
+    else:
+        raise RuntimeError("--submit requires --file or --url")
+
+    print(result)
 
 
-def handle_scan(args, QuickScanOrc):
+def handle_scan(args, quickscan_orc):
     if args.file:
-        result = QuickScanOrc.run_file(args.file, args.scan_type)
-        print(result)
+        result = quickscan_orc.run_file(args.file, args.scan_type)
 
     elif args.url:
-        result = QuickScanOrc.run_url(args.url, args.scan_type)
-        print(result)
+        result = quickscan_orc.run_url(args.url, args.scan_type)
+
+    else:
+        raise RuntimeError("--scan requires --file or --url")
+
+    print(result)
 
 
-def handle_search(args, SearchOrc):
+def handle_search(args, search_orc):
     if args.filename:
-        result = SearchOrc.run_search(
-            target=args.filename,
-            target_type=TargetType.FILENAME
-        )
+        target = args.filename
+        target_type = TargetType.FILENAME
+
     elif args.hash:
-        result = SearchOrc.run_search(
-            target=args.hash,
-            target_type=TargetType.HASH
-        )
+        target = args.hash
+        target_type = TargetType.HASH
 
     elif args.url:
-        result = SearchOrc.run_search(
-            target=args.url,
-            target_type=TargetType.URL
-        )
+        target = args.url
+        target_type = TargetType.URL
 
     elif args.domain:
-        result = SearchOrc.run_search(
-            target=args.domain,
-            target_type=TargetType.DOMAIN
-        )
+        target = args.domain
+        target_type = TargetType.DOMAIN
 
     elif args.host:
-        result = SearchOrc.run_search(
-            target=args.host,
-            target_type=TargetType.HOST
-        )
+        target = args.host
+        target_type = TargetType.HOST
 
     else:
         raise RuntimeError("No valid search argument provided")
+
+    result = search_orc.run_search(
+        target=target,
+        target_type=target_type
+    )
 
     print(result)

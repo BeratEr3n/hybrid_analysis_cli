@@ -2,6 +2,7 @@
 
 import argparse
 
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="hybrit",
@@ -13,50 +14,84 @@ def build_parser() -> argparse.ArgumentParser:
         required=True,
         help="Hybrid Analysis API key"
     )
-    
-    subparsers = parser.add_subparsers(
-        dest="command",
-        required=True
+
+    # ---------- mode selection ----------
+    mode_group = parser.add_mutually_exclusive_group(required=True)
+
+    mode_group.add_argument(
+        "--submit",
+        action="store_true",
+        help="Sandbox submission"
     )
 
-    # ----------------- submit -----------------
-    submit = subparsers.add_parser("submit", help="Sandbox submission")
+    mode_group.add_argument(
+        "--scan",
+        action="store_true",
+        help="Quick scan"
+    )
 
-    submit_group = submit.add_mutually_exclusive_group(required=True)
-    submit_group.add_argument("--file", type=str, help="File path for sandbox")
-    submit_group.add_argument("--url", type=str, help="URL for sandbox")
+    mode_group.add_argument(
+        "--search",
+        action="store_true",
+        help="Search HA database"
+    )
 
-    submit.add_argument(
+    # ---------- common target args ----------
+    target_group = parser.add_mutually_exclusive_group()
+
+    target_group.add_argument(
+        "--file",
+        type=str,
+        help="File path"
+    )
+
+    target_group.add_argument(
+        "--url",
+        type=str,
+        help="URL"
+    )
+
+    # ---------- submit args ----------
+    parser.add_argument(
         "--env-id",
         type=int,
         default=140,
-        help="Sandbox environment id"
+        help="Sandbox environment id (default: 140)"
     )
 
-    # ----------------- scan (quick scan) -----------------
-    scan = subparsers.add_parser("scan", help="Quick scan")
-
-    scan_group = scan.add_mutually_exclusive_group(required=True)
-    scan_group.add_argument("--file", type=str, help="File path for quick scan")
-    scan_group.add_argument("--url", type=str, help="URL for quick scan")
-
-    scan.add_argument(
+    # ---------- scan args ----------
+    parser.add_argument(
         "--scan-type",
         type=str,
         default="all",
         help="Quick scan type (default: all)"
     )
 
-    # ----------------- search -----------------
-    search = subparsers.add_parser("search", help="Search HA database")
+    # ---------- search args ----------
+    search_group = parser.add_mutually_exclusive_group()
 
-    search_group = search.add_mutually_exclusive_group(required=True)
+    search_group.add_argument(
+        "--filename",
+        type=str,
+        help="Search by filename"
+    )
 
-    search_group.add_argument("--filename", type=str, help="Search by filename")
+    search_group.add_argument(
+        "--hash",
+        type=str,
+        help="Search by hash"
+    )
 
-    search_group.add_argument("--hash", type=str, help="Search by hash")
-    search_group.add_argument("--url", type=str, help="Search by URL")
-    search_group.add_argument("--domain", type=str, help="Search by domain")
-    search_group.add_argument("--host", type=str, help="Search by IP/host")
+    search_group.add_argument(
+        "--domain",
+        type=str,
+        help="Search by domain"
+    )
+
+    search_group.add_argument(
+        "--host",
+        type=str,
+        help="Search by IP/host"
+    )
 
     return parser
