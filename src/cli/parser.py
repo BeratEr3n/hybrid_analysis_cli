@@ -8,6 +8,12 @@ def build_parser() -> argparse.ArgumentParser:
         description="Hybrid Analysis CLI Tool"
     )
 
+    parser.add_argument(
+        "--api-key",
+        required=True,
+        help="Hybrid Analysis API key"
+    )
+    
     subparsers = parser.add_subparsers(
         dest="command",
         required=True

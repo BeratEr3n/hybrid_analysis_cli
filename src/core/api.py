@@ -1,7 +1,7 @@
 # src/core/api.py
 
 import requests
-from config.settings import API_KEY, TIMEOUT
+from config.settings import TIMEOUT
 
 
 class APIClient:
@@ -9,8 +9,11 @@ class APIClient:
 
     BASE_URL = "https://hybrid-analysis.com/api/v2"
 
-    def __init__(self, api_key=API_KEY, timeout=TIMEOUT):
+    def __init__(self, api_key : str, timeout=TIMEOUT):
         self.api_key = api_key
+        if not api_key:
+            raise ValueError("api_key is required")
+        
         self.timeout = timeout
         self.headers = {
             "api-key": self.api_key,
