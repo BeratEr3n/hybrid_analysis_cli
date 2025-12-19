@@ -1,6 +1,6 @@
-# hybrit_analysis_cli
+# hybrid_analysis_cli
 
-`hybrit_analysis_cli`, **Hybrid Analysis** API’sini kullanarak
+`hybrid_analysis_cli`, **Hybrid Analysis** API’sini kullanarak
 - sandbox submission
 - quick scan
 - hash / domain / ip / url / filename search
@@ -22,8 +22,8 @@ işlemlerini **komut satırından** yapmanı sağlayan bir CLI aracıdır.
 
 ### 1. Repo’yu klonla
 ```bash
-git clone https://github.com/BeratEr3n/hybrit_analysis_cli.git
-cd hybrit_analysis_cli
+git clone https://github.com/BeratEr3n/hybrid_analysis_cli.git
+cd hybrid_analysis_cli
 ```
 
 ### 2. Virtual environment (önerilir)
@@ -48,7 +48,7 @@ copy .env.example .env
 
 ### `.env` içeriği
 ```env
-HYBRIT_ANALYSIS_API_KEY=YOUR_API_KEY_HERE
+HYBRID_ANALYSIS_API_KEY=YOUR_API_KEY_HERE
 ```
 
 > API key: https://hybrid-analysis.com
