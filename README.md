@@ -1,6 +1,6 @@
-# hybrit_analysis_cli
+# hybrid_analysis_cli
 
-`hybrit_analysis_cli`, **Hybrid Analysis** API’sini kullanarak:
+`hybrid_analysis_cli`, **Hybrid Analysis** API’sini kullanarak:
 
 - sandbox submission (dosya / URL)
 - quick scan (dosya / URL)
@@ -24,8 +24,8 @@ işlemlerini komut satırından veya programatik olarak (MCP / LLM) yapmanı sa�
 
 ### Repo’yu klonla
 ```bash
-git clone https://github.com/BeratEr3n/hybrit_analysis_cli.git
-cd hybrit_analysis_cli
+git clone https://github.com/BeratEr3n/hybrid_analysis_cli.git
+cd hybrid_analysis_cli
 ```
 
 ### Virtual environment (önerilir)
