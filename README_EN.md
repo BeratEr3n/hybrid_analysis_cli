@@ -1,6 +1,6 @@
-# hybrit_analysis_cli
+# hybrid_analysis_cli
 
-`hybrit_analysis_cli` is a CLI tool that uses the **Hybrid Analysis** API to perform:
+`hybrid_analysis_cli` is a CLI tool that uses the **Hybrid Analysis** API to perform:
 
 - sandbox submission (file / URL)
 - quick scan (file / URL)
@@ -24,8 +24,8 @@ from the command line or programmatically (MCP / LLM).
 
 ### Clone the repository
 ```bash
-git clone https://github.com/BeratEr3n/hybrit_analysis_cli.git
-cd hybrit_analysis_cli
+git clone https://github.com/BeratEr3n/hybrid_analysis_cli.git
+cd hybrid_analysis_cli
 ```
 
 ### Virtual environment (recommended)
