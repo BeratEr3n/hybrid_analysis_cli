@@ -6,7 +6,7 @@ from core.poller import SandboxPoller
 from core.parser import SandboxParser
 from core.submission import QuickScanService
 from core.poller import QuickScanPoller
-from core.parser import QuickScanParser
+from core.parser import QuickScanParser,SearchParser
 from core.search import SearchService
 from core.classifier import TargetType
 
@@ -54,12 +54,7 @@ class SandboxOrchestrator:
                 "message": "Sandbox analysis failed"
             }
 
-        # teorik olarak buraya düşmemeli
-        return {
-            "status": "UNKNOWN",
-            "job_id": job_id,
-            "message": f"Unexpected sandbox state: {state}"
-        }
+
 
 
     def run_url(
@@ -95,11 +90,6 @@ class SandboxOrchestrator:
                 "message": "Sandbox analysis failed"
             }
 
-        return {
-            "status": "UNKNOWN",
-            "job_id": job_id,
-            "message": f"Unexpected sandbox state: {state}"
-        }
 
 
 class QuickScanOrchestrator:
@@ -173,6 +163,7 @@ class SearchOrchestrator:
 
     def __init__(self, client: APIClient):
         self.search = SearchService(client)
+        self.parser = SearchParser()
 
     def run_search(self, target: str, target_type: TargetType) -> dict:
         # filename: classifier YOK
@@ -180,4 +171,7 @@ class SearchOrchestrator:
             return self.search.search_by_filename(target)
 
         # explicit (--hash, --url, --domain, --host)
-        return self.search.search(target, target_type)
+        search_result = self.search.search(target, target_type)
+        
+        parser_result = self.parser.parse(search_result)
+        return parser_result
